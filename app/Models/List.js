@@ -1,10 +1,45 @@
 import { generateId } from "../utils.js";
+import Item from "./Item.js";
 
 export default class List {
-  constructor(data) {
-    //TODO Your constructor takes in a data object that should have the properties you need to create your list here is a freebie, it will set the id its provided, or if that is undefined it will create a new one (this is an alternative to object destructuring)
-    this.id = data.id || generateId();
+  constructor({ id = generateId(), title, items }) {
+    this.id = id;
+    this.title = title;
+    this.items = items.map(i => new Item(i));
   }
-  //Be sure to add the methods needed to create the view template for this model
-  //For starting out, your tasks may be strings alone, but later you may wish to turn them into full objects, that will be up to you
+
+  get Template() {
+    return `
+  <div class="col-3">
+
+  <div class="card mb-3" style="max-width: 20rem;">
+
+          <div class="card-header text-white bg-primary"><h5>${
+            this.title
+          }</h5></div>
+          <dl> 
+          ${this.getItemTemplates()} 
+          </dl>
+
+          <div class="card-body bg-secondary text-dark">
+          <form onsubmit="app.listController.addItem(event, '${this.id}')">
+          <div class="form-group">
+          <input class="form-control form-control-sm" type="text" placeholder="Add new list item here" id="newItem" />
+          </div>
+             <i class="fas fa-trash-alt" id="trash-icon" onclick="app.listController.deleteList('${
+               this.id
+             }')"></i>
+          </form>
+        </div>
+        </div>
+        </div>
+  `;
+  }
+  getItemTemplates() {
+    let template = "";
+    this.items.forEach(item => {
+      template += item.Template;
+    });
+    return template;
+  }
 }
