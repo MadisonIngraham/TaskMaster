@@ -9,7 +9,9 @@ export default class Item {
 
   get Template() {
     return `
-      <dt>${this.name}</dt> <i class="fas fa-trash-alt" id="trash-icon" onclick="app.listController.deleteItem('${this.listId}','${this.id}')"> </i>
+    
+    <dt class="mb-1">${this.name} <i class="fas fa-trash-alt" id="trash-icon" onclick="app.listController.deleteItem('${this.listId}','${this.id}')"> </i></dt>
+  
       `;
   }
 }

@@ -1,39 +1,30 @@
 import List from "./Models/List.js";
+const STORAGEKEY = "CONFERENCE.STATE";
 
 let _state = {
   /** @type {List[]} */
   lists: []
 };
 
-//NOTE You should not need to change the code from this point down
+function _loadState() {
+  try {
+    let data = JSON.parse(localStorage.getItem(STORAGEKEY));
+    _state.lists = data.lists.map(l => new List(l));
+  } catch (e) {}
+}
+_loadState();
 
 class Store {
   /**
    * Provides access to application state data
    */
-  constructor() {
-    this.loadState();
-  }
   get State() {
     return _state;
   }
 
-  get Lists() {
-    //NOTE use this getter to ensure the objects in list are all of type List
-    return _state.lists.map(list => new List(list));
-  }
-
-  //NOTE call saveState everytime you change the state in any way
+  //run this after every state change
   saveState() {
-    localStorage.setItem("state", JSON.stringify(_state));
-  }
-
-  //NOTE this method will get the lists from local storage at the start of the app
-  loadState() {
-    let saved = JSON.parse(localStorage.getItem("state"));
-    if (saved) {
-      _state = saved;
-    }
+    localStorage.setItem(STORAGEKEY, JSON.stringify(_state));
   }
 }
 

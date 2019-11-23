@@ -30,6 +30,7 @@ export default class ListController {
 
   deleteList(listId) {
     ListService.deleteList(listId);
+    confirm("Are you sure you want to delete this list?");
     _drawLists();
   }
 
@@ -47,6 +48,7 @@ export default class ListController {
 
   deleteItem(listId, itemId) {
     ListService.deleteItem(listId, itemId);
+    confirm("Are you sure you want to delete this item?");
     _drawLists();
   }
 }
