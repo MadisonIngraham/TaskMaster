@@ -12,7 +12,7 @@ export default class List {
     return `
   <div class="col-3 mb-4">
 
-  <div class="card mb-3" style="max-width: 20rem;">
+  <div class="card border-primary mb-3" style="max-width: 20rem;">
 
           <div class="card-header text-white bg-primary"><h5>${
             this.title
