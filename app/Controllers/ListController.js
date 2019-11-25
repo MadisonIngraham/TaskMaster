@@ -30,8 +30,11 @@ export default class ListController {
 
   deleteList(listId) {
     ListService.deleteList(listId);
-    confirm("Are you sure you want to delete this list?");
-    _drawLists();
+    if (confirm("Are you sure you want to delete this list?")) {
+      _drawLists();
+    } else {
+      // Do nothing!
+    }
   }
 
   addItem(event, listId) {
@@ -48,7 +51,10 @@ export default class ListController {
 
   deleteItem(listId, itemId) {
     ListService.deleteItem(listId, itemId);
-    confirm("Are you sure you want to delete this item?");
-    _drawLists();
+    if (confirm("Are you sure you want to delete this item?")) {
+      _drawLists();
+    } else {
+      // Do nothing!
+    }
   }
 }
