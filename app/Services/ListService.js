@@ -12,7 +12,8 @@ class ListService {
 
   deleteList(listId) {
     let listToRemove = store.State.lists.find(l => l.id == listId);
-    store.State.lists.splice(listId, 1);
+    let listIndex = store.State.lists.findIndex(l => l.id == listId);
+    store.State.lists.splice(listIndex, 1);
     store.saveState();
   }
 
